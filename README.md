@@ -3,7 +3,7 @@
 Not currently working. WIP 
 
 <!-- Plugin description -->
-**Yarn Spinner LSP** based on [the LSP server by pappleby](https://github.com/pappleby/YarnSpinnerLanguageServer)[gh:template] article).
+**Yarn Spinner LSP** based on [the LSP server by pappleby](https://github.com/pappleby/YarnSpinnerLanguageServer).
 
 <!-- Plugin description end -->
 
