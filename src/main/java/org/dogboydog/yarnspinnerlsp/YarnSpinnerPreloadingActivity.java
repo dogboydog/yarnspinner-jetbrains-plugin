@@ -25,7 +25,7 @@ public class YarnSpinnerPreloadingActivity extends PreloadingActivity {
             return;
         }
         RawCommandServerDefinition server = new RawCommandServerDefinition("yarn",
-                new String[]{"\"dotnet\"", dllPath});
+                new String[]{"dotnet", dllPath});
                 indicator.setFraction(.15);
         IntellijLanguageClient.addServerDefinition(server);
 
