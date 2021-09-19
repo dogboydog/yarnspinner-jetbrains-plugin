@@ -10,5 +10,7 @@ Not currently working. WIP
 Thanks to: 
 
 https://github.com/JetBrains/intellij-platform-plugin-template
+
 https://github.com/ballerina-platform/ballerina-lang
+
 https://github.com/pappleby/YarnSpinnerLanguageServer
