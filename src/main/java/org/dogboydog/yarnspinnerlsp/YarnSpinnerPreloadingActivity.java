@@ -15,7 +15,7 @@ public class YarnSpinnerPreloadingActivity extends PreloadingActivity {
     private static final Logger log = Logger.getInstance(YarnSpinnerPreloadingActivity.class);
 
     private static final String lspDllRelativePath = "Server/YarnLanguageServer.dll";
-    private static final int initTimeout = 20000;
+    private static final int initTimeout = 1500000;
 
     public void preload(ProgressIndicator indicator) {
 
@@ -31,7 +31,7 @@ public class YarnSpinnerPreloadingActivity extends PreloadingActivity {
                 indicator.setFraction(.15);
         IntellijLanguageClient.addServerDefinition(server);
         IntellijLanguageClient.setTimeout(Timeouts.INIT, initTimeout);
-
+        indicator.setFraction(1);
     }
 
     private String getResourcePath(String relativePath) {
