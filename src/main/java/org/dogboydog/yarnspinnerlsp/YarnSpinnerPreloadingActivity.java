@@ -5,6 +5,7 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import org.wso2.lsp4intellij.IntellijLanguageClient;
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.RawCommandServerDefinition;
 import com.intellij.openapi.diagnostic.Logger;
+import org.wso2.lsp4intellij.requests.Timeouts;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,6 +15,7 @@ public class YarnSpinnerPreloadingActivity extends PreloadingActivity {
     private static final Logger log = Logger.getInstance(YarnSpinnerPreloadingActivity.class);
 
     private static final String lspDllRelativePath = "Server/YarnLanguageServer.dll";
+    private static final int initTimeout = 20000;
 
     public void preload(ProgressIndicator indicator) {
 
@@ -28,6 +30,7 @@ public class YarnSpinnerPreloadingActivity extends PreloadingActivity {
                 new String[]{"dotnet", dllPath});
                 indicator.setFraction(.15);
         IntellijLanguageClient.addServerDefinition(server);
+        IntellijLanguageClient.setTimeout(Timeouts.INIT, initTimeout);
 
     }
 

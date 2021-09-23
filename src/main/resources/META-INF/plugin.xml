@@ -6,8 +6,10 @@
 
     <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.dogboydog.yarnspinnerjetbrainsplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.dogboydog.yarnspinnerjetbrainsplugin.services.MyProjectService"/>
+        <applicationService
+                serviceImplementation="com.github.dogboydog.yarnspinnerjetbrainsplugin.services.MyApplicationService"/>
+        <projectService
+                serviceImplementation="com.github.dogboydog.yarnspinnerjetbrainsplugin.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
@@ -17,7 +19,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- register a preloading activity. You need to init IntellijLanguageClient with your config, see readme -->
-        <preloadingActivity implementation="org.dogboydog.yarnspinnerlsp.YarnSpinnerPreloadingActivity" id="org.dogboydog.yarnspinnerlsp.YarnSpinnerPreloadingActivity"/>
+        <preloadingActivity implementation="org.dogboydog.yarnspinnerlsp.YarnSpinnerPreloadingActivity"
+                            id="org.dogboydog.yarnspinnerlsp.YarnSpinnerPreloadingActivity"/>
 
         <!-- register intellijLanguageClient as a Service OR as a plugin component (see readme)... -->
         <applicationService serviceImplementation="org.wso2.lsp4intellij.IntellijLanguageClient"/>
@@ -30,10 +33,10 @@
         <notificationGroup id="lsp" displayType="STICKY_BALLOON"/>
 
         <!-- for displaying the statusbar icon -->
-<!--       dogboy: This class seems to be missing-->
-<!--        <statusBarWidgetFactory implementation="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
-<!--                                id="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
-<!--                                order="first" />-->
+        <!--       dogboy: This class seems to be missing-->
+        <!--        <statusBarWidgetFactory implementation="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
+        <!--                                id="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
+        <!--                                order="first" />-->
 
         <!-- needed for completion -->
         <completion.contributor implementationClass="org.wso2.lsp4intellij.contributors.LSPCompletionContributor"
@@ -51,8 +54,16 @@
                                id="LSPSymbolContributor"/>
 
         <!-- needed for renaming -->
-        <renameHandler implementation="org.wso2.lsp4intellij.contributors.rename.LSPRenameHandler" id="LSPRenameHandler" order="first"/>
-        <renamePsiElementProcessor implementation="org.wso2.lsp4intellij.contributors.rename.LSPRenameProcessor" id="LSPRenameProcessor" order="first"/>
+        <renameHandler implementation="org.wso2.lsp4intellij.contributors.rename.LSPRenameHandler" id="LSPRenameHandler"
+                       order="first"/>
+        <renamePsiElementProcessor implementation="org.wso2.lsp4intellij.contributors.rename.LSPRenameProcessor"
+                                   id="LSPRenameProcessor" order="first"/>
+
+        <applicationService serviceImplementation="org.dogboydog.yarnspinnerlsp.settings.AppSettingsState"/>
+        <applicationConfigurable parentId="tools" instance="org.dogboydog.yarnspinnerlsp.settings.AppSettingsConfigurable"
+                                 id="org.dogboydog.yarnspinnerlsp.ApplicationSettingsConfigurable"
+                                 displayName="Yarn Spinner"/>
+
     </extensions>
 
     <actions>
