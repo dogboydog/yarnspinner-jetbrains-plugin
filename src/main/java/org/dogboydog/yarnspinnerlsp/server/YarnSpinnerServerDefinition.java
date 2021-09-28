@@ -1,6 +1,7 @@
 package org.dogboydog.yarnspinnerlsp.server;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.util.ExceptionUtil;
 import org.dogboydog.yarnspinnerlsp.settings.AppSettingsState;
 import org.wso2.lsp4intellij.client.connection.StreamConnectionProvider;
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.LanguageServerDefinition;
@@ -22,8 +23,6 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
     private static final String lspDllRelativePath = "Server/YarnLanguageServer.dll";
     private static final Logger log = Logger.getInstance(YarnSpinnerServerDefinition.class);
     protected String[] command;
-    private File debugStdoutFile = new File("./yarnspinner-lsp.stdout.log");
-    private File debugStdinFile = new File("./yarnspinner-lsp.stdin.log");
     private RawCommandServerDefinition rawCommandServerDefinition = null;
     private OutputStream debugStdinStream;
     private OutputStream debugStdoutStream;
@@ -31,21 +30,21 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
     /**
      * Helper class used when debug logging is turned off to not write to any log files
      */
-    private class DummyOutputStream extends OutputStream {
+    private static class DummyOutputStream extends OutputStream {
         @Override
         public void write(int b) throws IOException {
         }
     }
 
     /**
-     * Creates new instance with the given languag id which is different from the file extension.
+     * Creates new instance with the given language id which is different from the file extension.
      *
      * @param ext         The extension
      * @param languageIds The language server ids mapping to extension(s).
      * @param command     The command to run
      */
     @SuppressWarnings("WeakerAccess")
-    public YarnSpinnerServerDefinition(String ext, Map<String, String> languageIds, String[] command) {
+    public YarnSpinnerServerDefinition() {
         this.ext = "yarn";
         this.languageIds = Map.of();
         String dllPath = getResourcePath(lspDllRelativePath);
@@ -60,8 +59,10 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
         var settings = AppSettingsState.getInstance();
         if (settings.debugLogging) {
             try {
-                debugStdinStream = new FileOutputStream(debugStdinFile);
-                debugStdoutStream = new FileOutputStream(debugStdoutFile);
+                File debugStdinFile = new File("./yarnspinner-lsp.stdin.log");
+                debugStdinStream = new FileOutputStream(debugStdinFile, true);
+                File debugStdoutFile = new File("./yarnspinner-lsp.stdout.log");
+                debugStdoutStream = new FileOutputStream(debugStdoutFile, true);
             } catch (IOException e) {
                 log.error(LOG_PREFIX + "Unable to open debug logging files.", e);
             }
@@ -69,10 +70,6 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
             debugStdinStream = new DummyOutputStream();
             debugStdoutStream = new DummyOutputStream();
         }
-    }
-
-    public YarnSpinnerServerDefinition() {
-        this(null, null, null); // use all defaults
     }
 
     public String toString() {
@@ -114,7 +111,7 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
             log.info(LOG_PREFIX + "Found requested resource: " + resourceUrl.getFile());
             return resourceUrl.getFile();
         } catch (IOException e) {
-            log.warn(LOG_PREFIX + "Failed to read resources: " + e.getMessage() + "\n" + e.getStackTrace());
+            log.warn(LOG_PREFIX + "Failed to read resources: " + e.getMessage() + ExceptionUtil.getThrowableText(e));
             return null;
         }
     }

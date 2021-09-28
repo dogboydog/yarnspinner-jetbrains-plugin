@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.dogboydog.yarnspinnerlsp.YarnSpinnerLSPConstants.LOG_PREFIX;
 
@@ -37,19 +38,16 @@ public class TeeStreamConnectionProvider implements StreamConnectionProvider {
         this.realConnectionProvider = realConnectionProvider;
         this.stdinDebugLogStream = stdinDebugLogStream;
         this.stdoutDebugLogStream = stdoutDebugLogStream;
-        try {
-            var startupString = String.format("%s%s: created TeeStreamConnectionProvider%n",
-                    LOG_PREFIX, Instant.now().toString()).getBytes(StandardCharsets.UTF_8);
-            this.stdoutDebugLogStream.write(startupString);
-            this.stdinDebugLogStream.write(startupString);
-        } catch (IOException e) {
-            log.error("Couldn't log initial startup message. ", e);
-        }
+        logDebug("created TeeStreamConnectionProvider instance");
+
     }
 
     @Override
     public void start() throws IOException {
         realConnectionProvider.start();
+
+        logDebug("TeeStreamConnectionProvider.start()");
+
         inputStream = new TeeInputStream(realConnectionProvider.getInputStream(), stdoutDebugLogStream);
         outputStream = new TeeOutputStream(realConnectionProvider.getOutputStream(), stdinDebugLogStream);
     }
@@ -66,8 +64,26 @@ public class TeeStreamConnectionProvider implements StreamConnectionProvider {
 
     @Override
     public void stop() {
+        log.debug("TeeStreamConnectionProvider.stop()");
         realConnectionProvider.stop();
         inputStream = null;
         outputStream = null;
+    }
+
+    /**
+     * Write a message to the log files
+     *
+     * @param logMessage - the message to log to both log files
+     */
+    public void logDebug(String logMessage) {
+        try {
+            var logBytes = String.format("%s%s: " + logMessage + "%n", LOG_PREFIX,
+                            ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a")))
+                    .getBytes(StandardCharsets.UTF_8);
+            this.stdoutDebugLogStream.write(logBytes);
+            this.stdinDebugLogStream.write(logBytes);
+        } catch (IOException e) {
+            log.error("Couldn't log debug message ", e);
+        }
     }
 }
