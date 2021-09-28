@@ -19,8 +19,7 @@ import org.jetbrains.annotations.Nullable;
 )
 public class AppSettingsState implements PersistentStateComponent<AppSettingsState> {
 
-    public String userId = "John Q. Public";
-    public boolean ideaStatus = false;
+    public boolean debugLogging = false;
 
     public static AppSettingsState getInstance() {
         return ApplicationManager.getApplication().getService(AppSettingsState.class);
