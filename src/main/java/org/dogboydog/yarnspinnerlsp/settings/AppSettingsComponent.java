@@ -4,9 +4,7 @@ package org.dogboydog.yarnspinnerlsp.settings;
 
 
 import com.intellij.ui.components.JBCheckBox;
-import com.intellij.ui.components.JBLabel;
 import com.intellij.util.ui.FormBuilder;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 

@@ -28,8 +28,8 @@ public class TeeStreamConnectionProvider implements StreamConnectionProvider {
 
     /**
      * @param realConnectionProvider - Original StreamConnectionProvider from the RawCommandServerDefinition
-     * @param stdinDebugLogStream            - The output stream to echo stdin to
-     * @param stdoutDebugLogStream           - The output stream to echo stdout to
+     * @param stdinDebugLogStream    - The output stream to echo stdin to
+     * @param stdoutDebugLogStream   - The output stream to echo stdout to
      */
     public TeeStreamConnectionProvider(StreamConnectionProvider realConnectionProvider,
                                        OutputStream stdinDebugLogStream,

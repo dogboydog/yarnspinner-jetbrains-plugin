@@ -1,10 +1,10 @@
 package org.dogboydog.yarnspinnerlsp;
 
 import com.intellij.openapi.application.PreloadingActivity;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import org.dogboydog.yarnspinnerlsp.server.YarnSpinnerServerDefinition;
 import org.wso2.lsp4intellij.IntellijLanguageClient;
-import com.intellij.openapi.diagnostic.Logger;
 import org.wso2.lsp4intellij.requests.Timeouts;
 
 public class YarnSpinnerPreloadingActivity extends PreloadingActivity {

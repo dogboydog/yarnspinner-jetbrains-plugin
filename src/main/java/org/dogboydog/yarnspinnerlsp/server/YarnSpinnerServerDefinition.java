@@ -2,15 +2,16 @@ package org.dogboydog.yarnspinnerlsp.server;
 
 import com.intellij.openapi.diagnostic.Logger;
 import org.dogboydog.yarnspinnerlsp.settings.AppSettingsState;
-import org.wso2.lsp4intellij.client.connection.ProcessStreamConnectionProvider;
 import org.wso2.lsp4intellij.client.connection.StreamConnectionProvider;
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.LanguageServerDefinition;
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.RawCommandServerDefinition;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 
