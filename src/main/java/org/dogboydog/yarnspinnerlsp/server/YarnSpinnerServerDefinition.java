@@ -27,6 +27,7 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
     private OutputStream debugStdinStream;
     private OutputStream debugStdoutStream;
 
+    private TeeStreamConnectionProvider teeStreamConnectionProvider;
     /**
      * Helper class used when debug logging is turned off to not write to any log files
      */
@@ -79,7 +80,8 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
     @Override
     public StreamConnectionProvider createConnectionProvider(String workingDir) {
         var realStreamProvider = rawCommandServerDefinition.createConnectionProvider(workingDir);
-        return new TeeStreamConnectionProvider(realStreamProvider, debugStdinStream, debugStdoutStream);
+        teeStreamConnectionProvider = new TeeStreamConnectionProvider(realStreamProvider, debugStdinStream, debugStdoutStream);
+        return teeStreamConnectionProvider;
     }
 
     @Override
@@ -96,6 +98,11 @@ public class YarnSpinnerServerDefinition extends LanguageServerDefinition {
         return ext.hashCode() + 3 * Arrays.hashCode(command);
     }
 
+    public void logDebug(String logMessage){
+        if (teeStreamConnectionProvider!=null){
+            teeStreamConnectionProvider.logDebug(logMessage);
+        }
+    }
     private String getResourcePath(String relativePath) {
         try {
             ClassLoader classLoader = getClass().getClassLoader();

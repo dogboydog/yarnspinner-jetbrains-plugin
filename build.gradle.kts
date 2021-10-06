@@ -19,6 +19,7 @@ plugins {
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
+
 // Configure project's dependencies
 repositories {
     mavenCentral()
@@ -26,7 +27,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.ballerina-platform:lsp4intellij:0.94.2")
+//    implementation("com.github.ballerina-platform:lsp4intellij:0.94.2")
+    implementation("com.github.pappleby:lsp4intellij:e9aaa97322")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin

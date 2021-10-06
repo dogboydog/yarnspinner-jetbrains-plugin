@@ -47,7 +47,6 @@ public class TeeStreamConnectionProvider implements StreamConnectionProvider {
         realConnectionProvider.start();
 
         logDebug("TeeStreamConnectionProvider.start()");
-
         inputStream = new TeeInputStream(realConnectionProvider.getInputStream(), stdoutDebugLogStream);
         outputStream = new TeeOutputStream(realConnectionProvider.getOutputStream(), stdinDebugLogStream);
     }

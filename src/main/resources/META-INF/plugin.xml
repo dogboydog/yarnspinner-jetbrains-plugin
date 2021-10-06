@@ -34,9 +34,9 @@
 
         <!-- for displaying the statusbar icon -->
         <!--       dogboy: This class seems to be missing-->
-        <!--        <statusBarWidgetFactory implementation="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
-        <!--                                id="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"-->
-        <!--                                order="first" />-->
+                <statusBarWidgetFactory implementation="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"
+                                        id="org.wso2.lsp4intellij.statusbar.LSPServerStatusWidgetFactory"
+                                        order="first" />
 
         <!-- needed for completion -->
         <completion.contributor implementationClass="org.wso2.lsp4intellij.contributors.LSPCompletionContributor"
